@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    @model ProjetGestionHotel1.Models.client
+
+
+    @{
+        ViewBag.Title = "Create";
+        Layout = null;
+    }
+    <meta charset="UTF-8">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="/Content/loginstyle/style.css">
+
+
+</head>
+
+<div class="form-structor">
+    <div class="signup">
+        <h2 class="form-title" id="signup">Sign up</h2>
+        <div class="form-holder">
+            @using (Html.BeginForm("SignUp", "clients", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                @Html.AntiForgeryToken()
+
+
+                <label for="pdp-id"><img src="~/Content/images/add.png" class="pluspdp" /></label>
+                <input type="file" name="photo_profil" class="pdp" id="pdp-id" />
+                @Html.ValidationMessageFor(model => model.photo_profil, "", new { @class = "error-msg" })
+
+                @Html.EditorFor(model => model.nom_client, new { htmlAttributes = new { @class = "input", @placeholder = "First Name" } })
+                @Html.ValidationMessageFor(model => model.nom_client, "", new { @class = "error-msg" })
+
+
+                @Html.EditorFor(model => model.prenom_client, new { htmlAttributes = new { @class = "input", @placeholder = "Last Name" } })
+                @Html.ValidationMessageFor(model => model.prenom_client, "", new { @class = "error-msg" })
+
+
+                @Html.EditorFor(model => model.email_client, new { htmlAttributes = new { @class = "input", @placeholder = "Email Address" } })
+                @Html.ValidationMessageFor(model => model.email_client, "", new { @class = "error-msg" })
+
+
+
+                @Html.EditorFor(model => model.tel_client, new { htmlAttributes = new { @class = "input", @placeholder = "Phone Number" } })
+                @Html.ValidationMessageFor(model => model.tel_client, "", new { @class = "error-msg" })
+
+
+                @Html.EditorFor(model => model.login_client, new { htmlAttributes = new { @class = "input", @placeholder = "Login" } })
+                @Html.ValidationMessageFor(model => model.login_client, "", new { @class = "error-msg" })
+
+
+                @Html.EditorFor(model => model.mdp_client, new { htmlAttributes = new { @class = "input", @placeholder = "Password", @type = "password" } })
+                @Html.ValidationMessageFor(model => model.mdp_client, "", new { @class = "error-msg" })
+
+                @Html.EditorFor(model => model.mdp_client2, new { htmlAttributes = new { @class = "input", @placeholder = "Confirm Password", @type = "password" } })
+                @Html.ValidationMessageFor(model => model.mdp_client2, "", new { @class = "error-msg" })
+
+
+
+                <button class="submit-btn" type="submit">Sign up</button>
+
+            }
+        </div>
+
+    </div>
+    <div class="login slide-up">
+        <div class="center">
+            <a href="@Url.Action("Login","Account")"><h2 class="form-title" id="login"><span>or</span>Log in</h2>
+        </div>
+    </div>
+</div>
+<!-- partial -->
+<script src="/Content/loginstyle/script.js"></script>
+
+</body>
+</html>
+
+

@@ -1,0 +1,42 @@
+﻿@model ProjetGestionHotel1.Models.chambre
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>chambre</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.num_chambre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.num_chambre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.disponibilite)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.disponibilite)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.categorie.nom_categorie)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.categorie.nom_categorie)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id_chambre }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,74 @@
+﻿@model ProjetGestionHotel1.Models.client
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>client</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.nom_client)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nom_client)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.prenom_client)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.prenom_client)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.email_client)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.email_client)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tel_client)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tel_client)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.login_client)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.login_client)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.mdp_client)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.mdp_client)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.photo_profil)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.photo_profil)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id_client }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

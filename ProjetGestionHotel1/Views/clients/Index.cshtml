@@ -1,0 +1,69 @@
+﻿@model IEnumerable<ProjetGestionHotel1.Models.client>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.nom_client)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.prenom_client)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.email_client)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tel_client)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.login_client)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.mdp_client)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.photo_profil)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.nom_client)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.prenom_client)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.email_client)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tel_client)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.login_client)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.mdp_client)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.photo_profil)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.id_client }) |
+            @Html.ActionLink("Details", "Details", new { id=item.id_client }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id_client })
+        </td>
+    </tr>
+}
+
+</table>

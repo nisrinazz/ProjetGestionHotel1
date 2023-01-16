@@ -1,0 +1,165 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="gestion_hotelModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="administrateur">
+    <Key>
+      <PropertyRef Name="id_admin" />
+    </Key>
+    <Property Name="id_admin" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nom_admin" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="prenom_admin" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="email_admin" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="photo_profil" Type="varbinary(max)" Nullable="false" />
+    <Property Name="tel_admin" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="login_admin" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="mdp_admin" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="is_superadmin" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="categorie">
+    <Key>
+      <PropertyRef Name="nom_categorie" />
+    </Key>
+    <Property Name="nom_categorie" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="prix" Type="float" Nullable="false" />
+  </EntityType>
+  <EntityType Name="chambre">
+    <Key>
+      <PropertyRef Name="id_chambre" />
+    </Key>
+    <Property Name="id_chambre" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="num_chambre" Type="int" Nullable="false" />
+    <Property Name="disponibilite" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="nom_categorie" Type="varchar" MaxLength="30" Nullable="false" />
+  </EntityType>
+  <EntityType Name="client">
+    <Key>
+      <PropertyRef Name="id_client" />
+    </Key>
+    <Property Name="id_client" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nom_client" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="prenom_client" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="email_client" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="tel_client" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="login_client" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="mdp_client" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="photo_profil" Type="varbinary(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="commentaire">
+    <Key>
+      <PropertyRef Name="id_commentaire" />
+    </Key>
+    <Property Name="id_commentaire" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_client" Type="int" Nullable="false" />
+    <Property Name="text_commentaire" Type="text" Nullable="false" />
+    <Property Name="score" Type="int" Nullable="false" />
+    <Property Name="prediction" Type="varchar" MaxLength="30" Nullable="false" />
+  </EntityType>
+  <EntityType Name="images">
+    <Key>
+      <PropertyRef Name="id_img" />
+    </Key>
+    <Property Name="id_img" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_chambre" Type="int" Nullable="false" />
+    <Property Name="image_file" Type="varbinary(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="reservation">
+    <Key>
+      <PropertyRef Name="id_reservation" />
+    </Key>
+    <Property Name="id_reservation" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_chambre" Type="int" Nullable="false" />
+    <Property Name="id_client" Type="int" Nullable="false" />
+    <Property Name="debut_reservation" Type="datetime" Nullable="false" />
+    <Property Name="fin_reservation" Type="datetime" Nullable="false" />
+    <Property Name="statut" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="nbr_personne" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK__chambre__nom_cat__4F7CD00D">
+    <End Role="categorie" Type="Self.categorie" Multiplicity="1" />
+    <End Role="chambre" Type="Self.chambre" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="categorie">
+        <PropertyRef Name="nom_categorie" />
+      </Principal>
+      <Dependent Role="chambre">
+        <PropertyRef Name="nom_categorie" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__commentai__id_cl__59063A47">
+    <End Role="client" Type="Self.client" Multiplicity="1" />
+    <End Role="commentaire" Type="Self.commentaire" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="client">
+        <PropertyRef Name="id_client" />
+      </Principal>
+      <Dependent Role="commentaire">
+        <PropertyRef Name="id_client" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__images__id_chamb__5629CD9C">
+    <End Role="chambre" Type="Self.chambre" Multiplicity="1" />
+    <End Role="images" Type="Self.images" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="chambre">
+        <PropertyRef Name="id_chambre" />
+      </Principal>
+      <Dependent Role="images">
+        <PropertyRef Name="id_chambre" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__reservati__id_ch__52593CB8">
+    <End Role="chambre" Type="Self.chambre" Multiplicity="1" />
+    <End Role="reservation" Type="Self.reservation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="chambre">
+        <PropertyRef Name="id_chambre" />
+      </Principal>
+      <Dependent Role="reservation">
+        <PropertyRef Name="id_chambre" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__reservati__id_cl__534D60F1">
+    <End Role="client" Type="Self.client" Multiplicity="1" />
+    <End Role="reservation" Type="Self.reservation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="client">
+        <PropertyRef Name="id_client" />
+      </Principal>
+      <Dependent Role="reservation">
+        <PropertyRef Name="id_client" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="gestion_hotelModelStoreContainer">
+    <EntitySet Name="administrateur" EntityType="Self.administrateur" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="categorie" EntityType="Self.categorie" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="chambre" EntityType="Self.chambre" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="client" EntityType="Self.client" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="commentaire" EntityType="Self.commentaire" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="images" EntityType="Self.images" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="reservation" EntityType="Self.reservation" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__chambre__nom_cat__4F7CD00D" Association="Self.FK__chambre__nom_cat__4F7CD00D">
+      <End Role="categorie" EntitySet="categorie" />
+      <End Role="chambre" EntitySet="chambre" />
+    </AssociationSet>
+    <AssociationSet Name="FK__commentai__id_cl__59063A47" Association="Self.FK__commentai__id_cl__59063A47">
+      <End Role="client" EntitySet="client" />
+      <End Role="commentaire" EntitySet="commentaire" />
+    </AssociationSet>
+    <AssociationSet Name="FK__images__id_chamb__5629CD9C" Association="Self.FK__images__id_chamb__5629CD9C">
+      <End Role="chambre" EntitySet="chambre" />
+      <End Role="images" EntitySet="images" />
+    </AssociationSet>
+    <AssociationSet Name="FK__reservati__id_ch__52593CB8" Association="Self.FK__reservati__id_ch__52593CB8">
+      <End Role="chambre" EntitySet="chambre" />
+      <End Role="reservation" EntitySet="reservation" />
+    </AssociationSet>
+    <AssociationSet Name="FK__reservati__id_cl__534D60F1" Association="Self.FK__reservati__id_cl__534D60F1">
+      <End Role="client" EntitySet="client" />
+      <End Role="reservation" EntitySet="reservation" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

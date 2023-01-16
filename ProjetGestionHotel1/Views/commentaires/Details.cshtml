@@ -1,0 +1,50 @@
+﻿@model ProjetGestionHotel1.Models.commentaire
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>commentaire</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.text_commentaire)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.text_commentaire)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.score)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.score)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.prediction)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.prediction)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.client.nom_client)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.client.nom_client)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id_commentaire }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
