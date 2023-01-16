@@ -24,8 +24,8 @@
                 @Html.AntiForgeryToken()
 
 
-                <label for="pdp-id"><img src="~/Content/images/add.png" class="pluspdp" /></label>
-                <input type="file" name="photo_profil" class="pdp" id="pdp-id" />
+                <label for="pdp-id"><img src="~/Content/images/add.png" class="pluspdp" id="here"/></label>
+                <input type="file" name="photo_profil" class="pdp" id="pdp-id" onchange="loadFile(event)"  />
                 @Html.ValidationMessageFor(model => model.photo_profil, "", new { @class = "error-msg" })
 
                 @Html.EditorFor(model => model.nom_client, new { htmlAttributes = new { @class = "input", @placeholder = "First Name" } })
@@ -72,6 +72,12 @@
 <!-- partial -->
 <script src="/Content/loginstyle/script.js"></script>
 
+<script>
+    var loadFile = function (event) {
+        var image = document.getElementById('here');
+        image.src = URL.createObjectURL(event.target.files[0]);
+    };
+</script>
 </body>
 </html>
 

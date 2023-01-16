@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -17,17 +18,8 @@ namespace ProjetGestionHotel.Controllers
         // GET: administrateurs
         public ActionResult Index()
         {
-            /*  var administrateurModel = db.administrateur.ToList();
-              var reservationModel = db.reservation.ToList();
-              var clientModel = db.client.ToList();
-              var commentaireModel = db.commentaire.ToList();
-
-              var allModels = new indexViewModel { administrateurModelObject = administrateurModel,
-                  clientModelObject= clientModel,
-                  reservationModelObject= reservationModel,
-                  commentaireModelObject= commentaireModel
-              };*/
-            return View();
+            Session["nbr_client"] = db.client.Count();
+            return View(db.administrateur.ToList());
         }
 
         // GET: administrateurs/Details/5
@@ -56,13 +48,31 @@ namespace ProjetGestionHotel.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id_admin,nom_admin,prenom_admin,email_admin,tel_admin,login_admin,mdp_admin,is_superadmin")] administrateur administrateur)
+        public ActionResult Create([Bind(Exclude = "photo_profil")]administrateur administrateur)
         {
             if (ModelState.IsValid)
             {
+                byte[] imageData = null;
+                if (Request.Files.Count > 0)
+                {
+                    HttpPostedFileBase poImgFile = Request.Files["photo_profil"];
+                    using (var binary = new BinaryReader(poImgFile.InputStream))
+                    {
+                        if (poImgFile.ContentLength != 0)
+                            imageData = binary.ReadBytes(poImgFile.ContentLength);
+                        else
+                        {
+                            string path = "C:\\Users\\azzai\\source\\repos\\ProjetGestionHotel\\ProjetGestionHotel\\Content\\images\\thisavatar.png";
+                            imageData = System.IO.File.ReadAllBytes(path);
+                        }
+
+                    }
+                }
+                administrateur.is_superadmin = false ;
+                administrateur.photo_profil = imageData;
                 db.administrateur.Add(administrateur);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index","administrateurs");
             }
 
             return View(administrateur);
@@ -88,12 +98,13 @@ namespace ProjetGestionHotel.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id_admin,nom_admin,prenom_admin,email_admin,tel_admin,login_admin,mdp_admin,is_superadmin")] administrateur administrateur)
+        public ActionResult Edit(administrateur administrateur)
         {
             if (ModelState.IsValid)
-            {
+            {    
                 db.Entry(administrateur).State = EntityState.Modified;
                 db.SaveChanges();
+                TempData["message"] = "Modifié avec succès";
                 return RedirectToAction("Index");
             }
             return View(administrateur);
@@ -111,20 +122,15 @@ namespace ProjetGestionHotel.Controllers
             {
                 return HttpNotFound();
             }
-            return View(administrateur);
+            else
+            {
+                db.administrateur.Remove(administrateur);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
         }
 
-        // POST: administrateurs/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            administrateur administrateur = db.administrateur.Find(id);
-            db.administrateur.Remove(administrateur);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
-
+        
         protected override void Dispose(bool disposing)
         {
             if (disposing)

@@ -210,6 +210,7 @@
     <Content Include="Content\fonts\open-iconic\open-iconic.svg" />
     <Content Include="Content\images\about.jpg" />
     <Content Include="Content\images\add.png" />
+    <Content Include="Content\images\addforadmin.png" />
     <Content Include="Content\images\avatar.png" />
     <Content Include="Content\images\bg_1.jpg" />
     <Content Include="Content\images\bg_2.jpg" />
@@ -1855,7 +1856,6 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\administrateurs\Create.cshtml" />
-    <Content Include="Views\administrateurs\Delete.cshtml" />
     <Content Include="Views\administrateurs\Details.cshtml" />
     <Content Include="Views\administrateurs\Edit.cshtml" />
     <Content Include="Views\administrateurs\Index.cshtml" />

@@ -64,7 +64,7 @@ namespace ProjetGestionHotel.Controllers
                             imageData = binary.ReadBytes(poImgFile.ContentLength);
                         else
                         {
-                            string path = "C:\\Users\\azzai\\source\\repos\\ProjetGestionHotel\\ProjetGestionHotel\\Content\\images\\avatar.png";
+                            string path = "C:\\Users\\azzai\\source\\repos\\ProjetGestionHotel\\ProjetGestionHotel\\Content\\images\\thisavatar.png";
                             imageData = System.IO.File.ReadAllBytes(path);
                         }
 

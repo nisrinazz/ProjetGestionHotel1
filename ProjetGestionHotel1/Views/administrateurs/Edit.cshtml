@@ -198,15 +198,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="form-group">
-                                            @Html.LabelFor(model => model.is_superadmin, "Is superAdmin", htmlAttributes: new { @class = "col-sm-3 col-form-label" })
-                                            <div class="col-md-10">
-                                                <div class="checkbox">
-                                                    @Html.EditorFor(model => model.is_superadmin)
-                                                    @Html.ValidationMessageFor(model => model.is_superadmin, "", new { @class = "text-danger" })
-                                                </div>
-                                            </div>
-                                        </div>
+                                        
 
                                         <button type="submit" class="btn btn-primary me-2">Submit</button>
                                     </div>

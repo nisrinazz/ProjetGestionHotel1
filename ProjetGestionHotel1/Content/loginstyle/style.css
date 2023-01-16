@@ -86,6 +86,8 @@ html, body {
         }
     .form-structor .signup .form-holder .pluspdp {
         width: 60px;
+        height :60px ;
+        object-fit : cover;
         background-color: rgba(197, 225, 246,0.8);
         border-radius: 30px;
         margin-left: 125px;

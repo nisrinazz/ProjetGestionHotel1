@@ -1,8 +1,11 @@
-﻿@model IEnumerable<ProjetGestionHotel.Models.administrateur>
+﻿@model IEnumerable<ProjetGestionHotel1.Models.administrateur>
 
 
 @{
     ViewBag.Title = "Index";
+
+
+    
 
 }
 @{
@@ -248,7 +251,7 @@
                                                                 <div class="row">
                                                                     <div class="col-sm-4">
                                                                         <p class="status-summary-ight-white mb-1">Closed Value</p>
-                                                                        <h2 class="text-info">num</h2>
+                                                                        <h2 class="text-info">@Session["nbr_client"]</h2>
                                                                     </div>
                                                                     <div class="col-sm-8">
                                                                         <div class="status-summary-chart-wrapper pb-4">
@@ -323,10 +326,11 @@
                                                                             <tr>
 
                                                                                 <th>ID</th>
+                                                                                <th>Profile Picture</th>
                                                                                 <th>Full Name</th>
                                                                                 <th>Email</th>
                                                                                 <th>N° phone</th>
-                                                                                <th> </th>
+                                                                                
                                                                             </tr>
                                                                         </thead>
                                                                         <tbody>
@@ -337,6 +341,11 @@
                                                                                     <tr>
                                                                                         <td>
                                                                                             @Html.DisplayFor(modelItem => item.id_admin, new { htmlAttributes = new { @class = "d-flex" } })
+                                                                                        </td>
+
+                                                                                      
+                                                                                        <td>
+                                                                                            <img src="data:image/gif;base64,@Convert.ToBase64String(item.photo_profil)" class="py-1" />
                                                                                         </td>
                                                                                         <td>
                                                                                             @Html.DisplayFor(modelItem => item.nom_admin, new { htmlAttributes = new { @class = "d-flex" } })

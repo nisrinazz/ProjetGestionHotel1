@@ -27,7 +27,7 @@ namespace ProjetGestionHotel1.Models
         public string nom_client { get; set; }
         [Required(ErrorMessage = "field required"), MaxLength(10, ErrorMessage = "Last name too long")]
         public string prenom_client { get; set; }
-        [Required(ErrorMessage = "field required"),EmailAddress(ErrorMessage ="Email Address invalid"), MaxLength(20, ErrorMessage = "Email Address too long")]
+        [Required(ErrorMessage = "field required"),EmailAddress(ErrorMessage ="Email Address invalid"), MaxLength(30, ErrorMessage = "Email Address too long")]
         public string email_client { get; set; }
         [Required(ErrorMessage = "field required"),Phone(ErrorMessage ="Phone number invalid"), MaxLength(10, ErrorMessage = "Phone number too long")]
         public string tel_client { get; set; }
