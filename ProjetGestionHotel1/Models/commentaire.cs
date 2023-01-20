@@ -11,7 +11,8 @@ namespace ProjetGestionHotel1.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class commentaire
     {
         public int id_commentaire { get; set; }

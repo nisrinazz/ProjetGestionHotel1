@@ -21,6 +21,23 @@ namespace ProjetGestionHotel1.Controllers
             return View(chambre.ToList());
         }
 
+        public ActionResult AvailableRooms()
+        {
+            var pquery = db.chambre.Where(ch => ch.disponibilite == "available");
+            return View(pquery.ToList());
+        }
+
+        public ActionResult ChambresParCat(String cat)
+        {
+            if(cat == null)
+            {
+                return RedirectToAction("Index", "chambres");
+            }
+            else
+            { var pquery = db.chambre.Where(ch => ch.categorie.nom_categorie == cat);
+                return View(pquery.ToList());
+            }
+        }
         // GET: chambres/Details/5
         public ActionResult Details(int? id)
         {
@@ -48,13 +65,16 @@ namespace ProjetGestionHotel1.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id_chambre,num_chambre,disponibilite,nom_categorie")] chambre chambre)
+        public ActionResult Create([Bind(Include = "num_chambre,disponibilite,nom_categorie")] chambre chambre)
         {
+
+            Session["chambre"] = chambre;
             if (ModelState.IsValid)
             {
+                chambre.disponibilite = "available";
                 db.chambre.Add(chambre);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Create", "images");
             }
 
             ViewBag.nom_categorie = new SelectList(db.categorie, "nom_categorie", "nom_categorie", chambre.nom_categorie);
@@ -106,19 +126,15 @@ namespace ProjetGestionHotel1.Controllers
             {
                 return HttpNotFound();
             }
-            return View(chambre);
+            else
+            {
+                db.chambre.Remove(chambre);
+                db.SaveChanges();
+                return RedirectToAction("Index", "administrateurs");
+            }
+
         }
 
-        // POST: chambres/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            chambre chambre = db.chambre.Find(id);
-            db.chambre.Remove(chambre);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
 
         protected override void Dispose(bool disposing)
         {

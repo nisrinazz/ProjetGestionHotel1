@@ -32,7 +32,8 @@ namespace ProjetGestionHotel.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                client cl = (client)@Session["user"];
+                id = cl.id_client;
             }
             client client = db.client.Find(id);
             if (client == null)
@@ -41,6 +42,8 @@ namespace ProjetGestionHotel.Controllers
             }
             return View(client);
         }
+
+
 
 
         public ActionResult SignUp()
@@ -54,38 +57,59 @@ namespace ProjetGestionHotel.Controllers
 
             if (ModelState.IsValid)
             {
-                byte[] imageData = null;
-                if (Request.Files.Count > 0)
+                var checkEmailClient = db.client.FirstOrDefault(c => c.email_client.Equals(client.email_client));
+                var checkLoginClient = db.client.FirstOrDefault(c => c.login_client.Equals(client.login_client));
+                var checkEmailAdmin = db.administrateur.FirstOrDefault(a => a.email_admin.Equals(client.email_client));
+                var checkLoginAdmin = db.administrateur.FirstOrDefault(a => a.login_admin.Equals(client.login_client));
+
+
+                if (checkLoginClient == null && checkEmailClient == null && checkEmailAdmin == null && checkLoginAdmin == null)
                 {
-                    HttpPostedFileBase poImgFile = Request.Files["photo_profil"];
-                    using (var binary = new BinaryReader(poImgFile.InputStream))
+                    byte[] imageData = null;
+                    if (Request.Files.Count > 0)
                     {
-                        if (poImgFile.ContentLength != 0)
-                            imageData = binary.ReadBytes(poImgFile.ContentLength);
-                        else
+                        HttpPostedFileBase poImgFile = Request.Files["photo_profil"];
+                        using (var binary = new BinaryReader(poImgFile.InputStream))
                         {
-                            string path = "C:\\Users\\azzai\\source\\repos\\ProjetGestionHotel\\ProjetGestionHotel\\Content\\images\\thisavatar.png";
-                            imageData = System.IO.File.ReadAllBytes(path);
+                            if (poImgFile.ContentLength != 0)
+                                imageData = binary.ReadBytes(poImgFile.ContentLength);
+                            else
+                            {
+                                string path = "C:\\Users\\azzai\\source\\repos\\ProjetGestionHotel1\\ProjetGestionHotel1\\Content\\images\\thisavatar.png";
+                                imageData = System.IO.File.ReadAllBytes(path);
+                            }
+
                         }
-
                     }
-                }
 
-                client.photo_profil = imageData;
-                db.client.Add(client);
-                db.SaveChanges();
-                return RedirectToAction("Login", "Account");
+                    client.photo_profil = imageData;
+                    db.client.Add(client);
+                    db.SaveChanges();
+                    return RedirectToAction("Login", "Account");
+                }
+                else if (checkLoginClient != null || checkLoginAdmin != null)
+                {
+                    TempData["erreur-login"] = "Login already exist !";
+                    return View();
+                }
+                else if (checkEmailClient != null || checkEmailAdmin != null)
+                {
+                    TempData["erreur-email"] = "Email already exist !";
+                    return View();
+                }
             }
 
             return View(client);
         }
+
 
         // GET: clients/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                client cl = (client)@Session["user"];
+                id = cl.id_client;
             }
             client client = db.client.Find(id);
             if (client == null)
@@ -94,6 +118,7 @@ namespace ProjetGestionHotel.Controllers
             }
             return View(client);
         }
+
 
         // POST: clients/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 

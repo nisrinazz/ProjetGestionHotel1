@@ -1,31 +1,95 @@
-﻿@{
-    ViewBag.Title = "Home Page";
+﻿@model IEnumerable<ProjetGestionHotel1.Models.categorie>
+
+
+@{
+
+
+    ViewBag.Title = "Contact";
+    Layout = "~/Views/Shared/_LayoutClient.cshtml";
+
 }
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+
+<!-- END nav -->
+<div class="hero">
+
+    <section class="home-slider owl-carousel">
+        <div class="slider-item" style="background-image:url(/Content/images/bg_1.jpg);">
+            <div class="overlay"></div>
+            <div class="container">
+                <div class="row no-gutters slider-text align-items-center">
+                    <div class="col-md-8 ftco-animate">
+                        <div class="text mb-5 pb-5">
+                            <h1 class="mb-3">A & N</h1>
+                            <h2>More than a hotel... an experience</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slider-item" style="background-image:url(/Content/images/bg_2.jpg);">
+            <div class="overlay"></div>
+            <div class="container">
+                <div class="row no-gutters slider-text align-items-center">
+                    <div class="col-md-8 ftco-animate">
+                        <div class="text mb-5 pb-5">
+                            <h1 class="mb-3">Experience Epic Beauty</h1>
+                            <h2>A & N Hotel &amp; Resort</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 </div>
 
+
+
+<section class="ftco-section bg-light ftco-room">
+    <div class="container-fluid px-0">
+        <div class="row no-gutters justify-content-center mb-5 pb-3">
+            <div class="col-md-7 heading-section text-center ftco-animate">
+                <span class="subheading">A & N Rooms</span>
+                <h2 class="mb-4">Hotel Master's Rooms</h2>
+            </div>
+        </div>
+        <div class="row no-gutters">
+            <div class="col-lg-6">
+                <div class="room-wrap">
+                    <div class="img d-flex align-items-center" style="background-image: url(/Content/images/bg_3.jpg);">
+                        <div class="text text-center px-4 py-4">
+                            <h2>Welcome to <a href="index.html"> A & N</a></h2>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @{ Html.RenderAction("CategorieListeHome", "Categorie");}
+
+
+
+        </div>
+    </div>
+</section>
+
+
+
 <div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+    <div class="col">
+        @{Html.RenderAction("Index", "commentaires");}
     </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+    <div class="col" style="margin-right:10px;">
+        @if (Session["user"] != null)
+        {
+            Html.RenderAction("Create", "commentaires");
+        }
     </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
+
+
 </div>
+
+
+
+
+

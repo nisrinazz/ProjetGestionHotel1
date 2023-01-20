@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Services.Description;
 using ProjetGestionHotel1.Models;
 
 namespace ProjetGestionHotel.Controllers
@@ -18,29 +19,48 @@ namespace ProjetGestionHotel.Controllers
         // GET: administrateurs
         public ActionResult Index()
         {
-            Session["nbr_client"] = db.client.Count();
-            return View(db.administrateur.ToList());
+            if (Session["role"] == "ADMIN")
+            {
+                Session["nbr_client"] = db.client.Count();
+                Session["comments_negative"] = db.commentaire.Where(c => c.score == 0).Count();
+                Session["comments_positive"] = db.commentaire.Where(c => c.score == 1).Count();
+                return View(db.administrateur.ToList());
+            }
+
+                return RedirectToAction("Index","Home");       
         }
 
         // GET: administrateurs/Details/5
         public ActionResult Details(int? id)
         {
-            if (id == null)
+            if(Session["role"] == "ADMIN")
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    administrateur admin = (administrateur)@Session["user"];
+                    id = admin.id_admin;
+
+                }
+                administrateur administrateur = db.administrateur.Find(id);
+                if (administrateur == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(administrateur);
             }
-            administrateur administrateur = db.administrateur.Find(id);
-            if (administrateur == null)
-            {
-                return HttpNotFound();
-            }
-            return View(administrateur);
+            else return RedirectToAction("Index", "Home");
         }
 
         // GET: administrateurs/Create
         public ActionResult Create()
-        {
-            return View();
+        { administrateur ad = (administrateur)Session["user"];
+            if (ad.is_superadmin == true)
+            { return View(); }
+            else if( ad.is_superadmin == false)
+            {
+                return RedirectToAction("Index", "administrateurs");
+            }
+                return RedirectToAction("Index", "Home");
         }
 
         // POST: administrateurs/Create
@@ -48,33 +68,47 @@ namespace ProjetGestionHotel.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Exclude = "photo_profil")]administrateur administrateur)
+        public ActionResult Create([Bind(Exclude = "photo_profil")] administrateur administrateur)
         {
             if (ModelState.IsValid)
             {
+                var checkEmailAdmin = db.administrateur.FirstOrDefault(a => a.email_admin.Equals(administrateur.email_admin));
+                var checkLoginAdmin = db.administrateur.FirstOrDefault(a => a.login_admin.Equals(administrateur.login_admin));
                 byte[] imageData = null;
-                if (Request.Files.Count > 0)
+                if (checkEmailAdmin == null && checkLoginAdmin == null)
                 {
-                    HttpPostedFileBase poImgFile = Request.Files["photo_profil"];
-                    using (var binary = new BinaryReader(poImgFile.InputStream))
+                    if (Request.Files.Count > 0)
                     {
-                        if (poImgFile.ContentLength != 0)
-                            imageData = binary.ReadBytes(poImgFile.ContentLength);
-                        else
+                        HttpPostedFileBase poImgFile = Request.Files["photo_profil"];
+                        using (var binary = new BinaryReader(poImgFile.InputStream))
                         {
-                            string path = "C:\\Users\\azzai\\source\\repos\\ProjetGestionHotel\\ProjetGestionHotel\\Content\\images\\thisavatar.png";
-                            imageData = System.IO.File.ReadAllBytes(path);
+                            if (poImgFile.ContentLength != 0)
+                                imageData = binary.ReadBytes(poImgFile.ContentLength);
+                            else
+                            {
+                                string path = "C:\\Users\\azzai\\source\\repos\\ProjetGestionHotel1\\ProjetGestionHotel1\\Content\\images\\thisavatar.png";
+                                imageData = System.IO.File.ReadAllBytes(path);
+                            }
+
                         }
-
                     }
+                    administrateur.is_superadmin = false;
+                    administrateur.photo_profil = imageData;
+                    db.administrateur.Add(administrateur);
+                    db.SaveChanges();
+                    return RedirectToAction("Index", "administrateurs");
                 }
-                administrateur.is_superadmin = false ;
-                administrateur.photo_profil = imageData;
-                db.administrateur.Add(administrateur);
-                db.SaveChanges();
-                return RedirectToAction("Index","administrateurs");
+                else if (checkLoginAdmin != null)
+                {
+                    ViewBag.error = "Login already exist !";
+                    return View();
+                }
+                else if (checkEmailAdmin != null)
+                {
+                    ViewBag.error = "Email already exist !";
+                    return View();
+                }
             }
-
             return View(administrateur);
         }
 
@@ -83,7 +117,8 @@ namespace ProjetGestionHotel.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                administrateur admin = (administrateur)@Session["user"];
+                id = admin.id_admin;
             }
             administrateur administrateur = db.administrateur.Find(id);
             if (administrateur == null)
@@ -101,14 +136,15 @@ namespace ProjetGestionHotel.Controllers
         public ActionResult Edit(administrateur administrateur)
         {
             if (ModelState.IsValid)
-            {    
+            {
                 db.Entry(administrateur).State = EntityState.Modified;
                 db.SaveChanges();
-                TempData["message"] = "Modifié avec succès";
+                TempData["message"] = "Modified successfully";
                 return RedirectToAction("Index");
             }
             return View(administrateur);
         }
+
 
         // GET: administrateurs/Delete/5
         public ActionResult Delete(int? id)

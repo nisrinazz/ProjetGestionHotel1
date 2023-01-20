@@ -166,7 +166,10 @@ figure {
 
 img {
   vertical-align: middle;
-  border-style: none; }
+  border-style: none;
+  
+
+}
 
 svg {
   overflow: hidden;
@@ -8893,8 +8896,9 @@ h1, h2, h3, h4, h5,
   transition: all 0.3s ease; }
   .room-wrap .img {
     width: 100%;
-    height: 360px;
-    display: block; }
+    height: 480px;
+    display: block;
+  }
   .room-wrap .half {
     width: 100%;
     position: relative; }
@@ -8946,6 +8950,33 @@ h1, h2, h3, h4, h5,
       font-size: 26px;
       color: #b69100;
       position: relative; }
+
+
+    .room-wrap .text .room-num {
+       color:black;
+    }
+
+
+    .room-wrap .text .alert , .list .alert {
+        border-radius: 30px;
+        width: 150px;
+        padding-top: 10px;
+        padding-left: 10px;
+        padding-right: 10px;
+        padding-bottom: 10px;
+        margin-left: 65px;
+        color:white;
+    }
+
+    .list li .cat-tit {
+        margin-right: 70px;
+    }
+
+.list li .cat-tit, .list li .avai-tit {
+    color: rgb(169,169,169);
+}
+
+
     .room-wrap .text span.per {
       font-size: 14px;
       color: #666666; }
@@ -10110,6 +10141,7 @@ textarea.form-control {
 
 .categories li, .sidelink li {
   position: relative;
+  margin-left:3px;
   margin-bottom: 10px;
   padding-bottom: 10px;
   border-bottom: 1px dotted #dee2e6;
@@ -10252,5 +10284,36 @@ textarea.form-control {
       margin-top:10px;
       box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.15);
     }
-    
-   
+
+
+.book-button {
+    background-color: black;
+    color: white;
+    padding-left: 35px;
+    padding-right: 35px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    cursor: pointer;
+    font-size: 15px;
+    transition: opacity 0.15s;
+}
+
+
+.nav-link .image-navbar {
+    width: 30px;
+    height: 30px;
+    border-radius:15px;
+}
+
+.book-form-btn {
+    background-color: rgb(255, 216, 20);
+    border: none;
+    height: 40px;
+    font-size: 20px;
+    width: 190px;
+    border-radius: 20px;
+    cursor: pointer;
+    margin-top:35px;
+    padding-left:20px;
+    padding-right:20px;
+}

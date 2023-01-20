@@ -31293,3 +31293,7 @@ div.tagsinput span.tag a {
     display : none ; 
     visibility:hidden;
 }
+
+.room-num{
+    color:black;
+}

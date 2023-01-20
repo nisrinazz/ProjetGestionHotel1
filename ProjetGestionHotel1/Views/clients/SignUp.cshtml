@@ -12,7 +12,6 @@
     <title>Sign Up</title>
     <link rel="stylesheet" href="/Content/loginstyle/style.css">
 
-
 </head>
 
 <div class="form-structor">
@@ -24,8 +23,8 @@
                 @Html.AntiForgeryToken()
 
 
-                <label for="pdp-id"><img src="~/Content/images/add.png" class="pluspdp" id="here"/></label>
-                <input type="file" name="photo_profil" class="pdp" id="pdp-id" onchange="loadFile(event)"  />
+                <label for="pdp-id"><img src="~/Content/images/add.png" class="pluspdp" id="here" /></label>
+                <input type="file" name="photo_profil" class="pdp" id="pdp-id" onchange="loadFile(event)" />
                 @Html.ValidationMessageFor(model => model.photo_profil, "", new { @class = "error-msg" })
 
                 @Html.EditorFor(model => model.nom_client, new { htmlAttributes = new { @class = "input", @placeholder = "First Name" } })
@@ -38,6 +37,10 @@
 
                 @Html.EditorFor(model => model.email_client, new { htmlAttributes = new { @class = "input", @placeholder = "Email Address" } })
                 @Html.ValidationMessageFor(model => model.email_client, "", new { @class = "error-msg" })
+                if (@TempData["erreur-email"] != null)
+                {
+                    <span class="error-msg">@TempData["erreur-email"]</span>
+                }
 
 
 
@@ -47,6 +50,10 @@
 
                 @Html.EditorFor(model => model.login_client, new { htmlAttributes = new { @class = "input", @placeholder = "Login" } })
                 @Html.ValidationMessageFor(model => model.login_client, "", new { @class = "error-msg" })
+                if (@TempData["erreur-login"] != null)
+                {
+                    <span class="error-msg">@TempData["erreur-login"]</span>
+                }
 
 
                 @Html.EditorFor(model => model.mdp_client, new { htmlAttributes = new { @class = "input", @placeholder = "Password", @type = "password" } })
@@ -57,9 +64,7 @@
 
 
 
-                <button class="submit-btn" type="submit">Sign up</button>
-
-            }
+                <button class="submit-btn" type="submit">Sign up</button>}
         </div>
 
     </div>

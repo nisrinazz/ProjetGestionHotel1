@@ -11,18 +11,53 @@ namespace ProjetGestionHotel1.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class reservation
     {
         public int id_reservation { get; set; }
+        
         public int id_chambre { get; set; }
+       
         public int id_client { get; set; }
+        [Required]
+        [Display(Name ="Check in")]
+        
         public System.DateTime debut_reservation { get; set; }
+        [Required]
+        [Display(Name = "Check out")]
+        [DateCorrectRange(ValidateEndDate = true, ErrorMessage = "Check out date can't be younger than Check in date")]
         public System.DateTime fin_reservation { get; set; }
+        [Display(Name = "Status")]
         public string statut { get; set; }
+
+        [Required]
+        [Display(Name = "Adults")]
         public int nbr_personne { get; set; }
     
         public virtual chambre chambre { get; set; }
         public virtual client client { get; set; }
+    }
+
+    [AttributeUsage(AttributeTargets.Property)]
+    public class DateCorrectRangeAttribute : ValidationAttribute
+    {
+        public bool ValidateStartDate { get; set; }
+        public bool ValidateEndDate { get; set; }
+
+        protected override ValidationResult IsValid(object value, ValidationContext validationContext)
+        {
+            var model = validationContext.ObjectInstance as reservation;
+
+            if (model != null)
+            {
+                if (model.debut_reservation > model.fin_reservation && ValidateEndDate)
+                {
+                    return new ValidationResult(string.Empty);
+                }
+            }
+
+            return ValidationResult.Success;
+        }
     }
 }

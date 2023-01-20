@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="gestion_hotelModelStoreContainer" CdmEntityContainer="gestion_hotelEntities">
+    <EntitySetMapping Name="administrateur">
+      <EntityTypeMapping TypeName="gestion_hotelModel.administrateur">
+        <MappingFragment StoreEntitySet="administrateur">
+          <ScalarProperty Name="id_admin" ColumnName="id_admin" />
+          <ScalarProperty Name="nom_admin" ColumnName="nom_admin" />
+          <ScalarProperty Name="prenom_admin" ColumnName="prenom_admin" />
+          <ScalarProperty Name="email_admin" ColumnName="email_admin" />
+          <ScalarProperty Name="photo_profil" ColumnName="photo_profil" />
+          <ScalarProperty Name="tel_admin" ColumnName="tel_admin" />
+          <ScalarProperty Name="login_admin" ColumnName="login_admin" />
+          <ScalarProperty Name="mdp_admin" ColumnName="mdp_admin" />
+          <ScalarProperty Name="is_superadmin" ColumnName="is_superadmin" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="categorie">
+      <EntityTypeMapping TypeName="gestion_hotelModel.categorie">
+        <MappingFragment StoreEntitySet="categorie">
+          <ScalarProperty Name="nom_categorie" ColumnName="nom_categorie" />
+          <ScalarProperty Name="prix" ColumnName="prix" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="chambre">
+      <EntityTypeMapping TypeName="gestion_hotelModel.chambre">
+        <MappingFragment StoreEntitySet="chambre">
+          <ScalarProperty Name="id_chambre" ColumnName="id_chambre" />
+          <ScalarProperty Name="num_chambre" ColumnName="num_chambre" />
+          <ScalarProperty Name="disponibilite" ColumnName="disponibilite" />
+          <ScalarProperty Name="nom_categorie" ColumnName="nom_categorie" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="client">
+      <EntityTypeMapping TypeName="gestion_hotelModel.client">
+        <MappingFragment StoreEntitySet="client">
+          <ScalarProperty Name="id_client" ColumnName="id_client" />
+          <ScalarProperty Name="nom_client" ColumnName="nom_client" />
+          <ScalarProperty Name="prenom_client" ColumnName="prenom_client" />
+          <ScalarProperty Name="email_client" ColumnName="email_client" />
+          <ScalarProperty Name="tel_client" ColumnName="tel_client" />
+          <ScalarProperty Name="login_client" ColumnName="login_client" />
+          <ScalarProperty Name="mdp_client" ColumnName="mdp_client" />
+          <ScalarProperty Name="photo_profil" ColumnName="photo_profil" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="commentaire">
+      <EntityTypeMapping TypeName="gestion_hotelModel.commentaire">
+        <MappingFragment StoreEntitySet="commentaire">
+          <ScalarProperty Name="id_commentaire" ColumnName="id_commentaire" />
+          <ScalarProperty Name="id_client" ColumnName="id_client" />
+          <ScalarProperty Name="text_commentaire" ColumnName="text_commentaire" />
+          <ScalarProperty Name="score" ColumnName="score" />
+          <ScalarProperty Name="prediction" ColumnName="prediction" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="images">
+      <EntityTypeMapping TypeName="gestion_hotelModel.images">
+        <MappingFragment StoreEntitySet="images">
+          <ScalarProperty Name="id_img" ColumnName="id_img" />
+          <ScalarProperty Name="id_chambre" ColumnName="id_chambre" />
+          <ScalarProperty Name="image_file" ColumnName="image_file" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="reservation">
+      <EntityTypeMapping TypeName="gestion_hotelModel.reservation">
+        <MappingFragment StoreEntitySet="reservation">
+          <ScalarProperty Name="id_reservation" ColumnName="id_reservation" />
+          <ScalarProperty Name="id_chambre" ColumnName="id_chambre" />
+          <ScalarProperty Name="id_client" ColumnName="id_client" />
+          <ScalarProperty Name="debut_reservation" ColumnName="debut_reservation" />
+          <ScalarProperty Name="fin_reservation" ColumnName="fin_reservation" />
+          <ScalarProperty Name="statut" ColumnName="statut" />
+          <ScalarProperty Name="nbr_personne" ColumnName="nbr_personne" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

@@ -1,0 +1,77 @@
+﻿@model IEnumerable<ProjetGestionHotel1.Models.reservation>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = Layout = "~/Views/Shared/_LayoutClient.cshtml";
+}
+
+<div class="hero-wrap" style="background-image: url('/Content/images/bg_1.jpg');">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row no-gutters slider-text d-flex align-itemd-end justify-content-center">
+            <div class="col-md-9 ftco-animate text-center d-flex align-items-end justify-content-center">
+                <div class="text">
+                    <h1 class="mb-4 bread">Your reservations History</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.chambre.num_chambre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.debut_reservation)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fin_reservation)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.statut)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.nbr_personne)
+        </th>
+        <th>
+           Full Name
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.chambre.num_chambre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.debut_reservation.Date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fin_reservation.Date)
+        </td>
+        <td>
+            @if (item.statut == "Waiting")
+            {<span class="alert" style="background-color:orange;">  @Html.DisplayFor(modelItem => item.statut) </span>}
+        else if (item.statut == "Accepted")
+        { <span class="alert" style="background-color:forestgreen;">  @Html.DisplayFor(modelItem => item.statut) </span>}
+    else
+    { <span class="alert" style="background-color:orangered;">  @Html.DisplayFor(modelItem => item.statut) </span>}
+        </td>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.nbr_personne)
+        </td>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.client.nom_client) @Html.DisplayFor(modelItem => item.client.prenom_client)
+        </td>
+
+        
+    </tr>
+}
+
+</table>

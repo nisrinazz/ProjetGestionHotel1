@@ -1,0 +1,34 @@
+﻿@model ProjetGestionHotel1.Models.images
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>images</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.image_file)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.image_file)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.chambre.disponibilite)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.chambre.disponibilite)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id_img }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

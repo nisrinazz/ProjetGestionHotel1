@@ -18,6 +18,7 @@ namespace ProjetGestionHotel1.Models
         public gestion_hotelEntities()
             : base("name=gestion_hotelEntities")
         {
+           
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

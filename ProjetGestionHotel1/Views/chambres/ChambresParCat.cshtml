@@ -1,0 +1,65 @@
+﻿@model IEnumerable<ProjetGestionHotel1.Models.chambre>
+
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutClient.cshtml";
+}
+
+
+<div class="hero-wrap" style="background-image: url('/Content/images/bg_1.jpg');">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row no-gutters slider-text d-flex align-itemd-end justify-content-center">
+            <div class="col-md-9 ftco-animate text-center d-flex align-items-end justify-content-center">
+                <div class="text">
+                    <h1 class="mb-4 bread">@Model.FirstOrDefault().categorie.nom_categorie<span>s</span></h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<section class="ftco-section bg-light ftco-no-pb">
+    <div class="container-fluid px-0">
+        <div class="row no-gutters justify-content-center mb-5 pb-3">
+            <div class="col-md-7 heading-section text-center ftco-animate">
+                <span class="subheading">Roxandrea Rooms</span>
+                <h2 class="mb-4">Hotel Master's Rooms</h2>
+            </div>
+        </div>
+        <div class="row no-gutters">
+
+            @foreach (var item in Model)
+            {
+                <div class="col-lg-6">
+                    <div class="room-wrap d-md-flex">
+                        <a href="@Url.Action("Details", "chambres", new {id = item.id_chambre})" class="img" style="background-image: url(data:image/gif;base64,@Convert.ToBase64String(item.images.FirstOrDefault().image_file) );"></a>
+                        <div class="half left-arrow d-flex align-items-center">
+                            <div class="text p-4 p-xl-5 text-center">
+                                @if (item.disponibilite == "available")
+                                {<p class="alert" style="background-color:green;">@Html.DisplayFor(modelItem => item.disponibilite)</p>}
+
+                                @if (item.disponibilite == "not available")
+                                {
+                                    <p class="alert" style="background-color:red;">@Html.DisplayFor(modelItem => item.disponibilite)</p>
+                                }
+
+                                <p class="room-num">Room N° @Html.DisplayFor(modelItem => item.num_chambre)</p>
+                                <p class="star mb-0"><span class="ion-ios-star"></span><span class="ion-ios-star"></span><span class="ion-ios-star"></span><span class="ion-ios-star"></span><span class="ion-ios-star"></span></p>
+                                <p class="mb-0"><span class="price mr-1">@Html.DisplayFor(modelItem => item.categorie.prix)DH</span> <span class="per">per night</span></p>
+                                <h3 class="mb-3"><a href="@Url.Action("Details", "chambres", new {id = item.id_chambre})">@Html.DisplayFor(modelItem => item.categorie.nom_categorie)</a></h3>
+                                <p class="pt-1"><a href="@Url.Action("Details", "chambres", new {id = item.id_chambre})" class="btn-custom px-3 py-2">View Room Details <span class="icon-long-arrow-right"></span></a></p>
+                                @if (item.disponibilite == "available")
+                                {
+                                    <button type="submit" class="book-button" onclick="window.location.href='@Url.Action("Create", "reservations", new {id = item.id_chambre})';">BOOK NOW</button>}
+                            </div>
+                        </div>
+                    </div>
+                </div>}
+
+        </div>
+    </div>
+</section>

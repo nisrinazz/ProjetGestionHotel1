@@ -1,51 +1,81 @@
 ﻿@model IEnumerable<ProjetGestionHotel1.Models.commentaire>
 
 @{
-    ViewBag.Title = "Index";
+    Layout = null;
+
+    var user = (ProjetGestionHotel1.Models.client)Session["user"];
 }
 
-<h2>Index</h2>
+<style>
+    .rat {
+        width: 20px;
+        height:20px;
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.text_commentaire)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.score)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.prediction)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.client.nom_client)
-        </th>
-        <th></th>
-    </tr>
+    }
+</style>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.text_commentaire)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.score)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.prediction)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.client.nom_client)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id_commentaire }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id_commentaire }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id_commentaire })
-        </td>
-    </tr>
-}
 
-</table>
+    <div class="pt-5 mt-5" style="margin-left:30px;">
+        <h3 class="mb-5">@Model.Count() Comments</h3>
+        <ul class="comment-list">
+            @foreach (var item in Model)
+            {
+            <li class="comment">
+                <div class="vcard bio">
+                    <img src="data:image/gif;base64,@Convert.ToBase64String(item.client.photo_profil)" alt="Image placeholder">
+                </div>
+                <div class="comment-body">
+                    <h3>@Html.DisplayFor(modelitem => item.client.prenom_client) @Html.DisplayFor(modelitem => item.client.nom_client)</h3>
+
+                    @if (item.score == 1)
+                    {
+                        <div class="row">
+                            <div class="col-1">
+                                <img class="rat" src="~/Content/images/laughing.png" />
+                            </div>
+                            <div class="col">
+                                <div class="meta">@Html.DisplayFor(modelitem => item.prediction) comment</div>
+                            </div>
+
+                        </div>
+
+
+                    }
+                    @if (item.score == -1)
+                    {
+                        <div class="row">
+                            <div class="col-1">
+                                <img class="rat" src="~/Content/images/sad.png" />
+                            </div>
+                            <div class="col">
+                                <div class="meta">@Html.DisplayFor(modelitem => item.prediction) comment</div>
+
+                            </div>
+
+                        </div>
+
+                      
+                    }
+
+                    @if (item.score == 0)
+                    {
+                        <div class="row">
+                            <div class="col-1">
+                                <img class="rat" src="~/Content/images/neutral.png" />
+                            </div>
+                            <div class="col">
+                                <div class="meta">@Html.DisplayFor(modelitem => item.prediction) comment</div>
+                            </div>
+
+                           
+                        </div>
+
+
+                    }
+                    <div class="meta">@Html.DisplayFor(modelitem => item.client.email_client)</div>
+                    <p>@Html.DisplayFor(modelitem => item.text_commentaire)</p>
+
+                </div>
+            </li>}
+        </ul>
+    </div>

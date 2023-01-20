@@ -15,7 +15,13 @@ namespace ProjetGestionHotel.Controllers
         // GET: Login
         public ActionResult Login()
         {
-            return View();
+            if (Session["user"] == null)
+            { return View(); }
+            else if (Session["role"] == "ADMIN")
+            { return RedirectToAction("Index", "administrateur"); }
+            
+             return RedirectToAction("Index", "Home"); 
+
         }
         public client getClient(String login, String mdp)
         {
@@ -28,48 +34,44 @@ namespace ProjetGestionHotel.Controllers
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult Login(String login, String mdp)
         {
-            login = Request.Form["login"];
-            mdp = Request.Form["password"];
-            client client = getClient(login, mdp);
+            
+                login = Request.Form["login"];
+                mdp = Request.Form["password"];
+                client client = getClient(login, mdp);
 
-            if (client == null)
-            {
-                administrateur admin = getAdministrateur(login, mdp);
-                if (admin == null)
+                if (client == null)
                 {
-                    TempData["message"] = "Login or password incorrect";
-                    return View();
+                    administrateur admin = getAdministrateur(login, mdp);
+                    if (admin == null)
+                    {
+                        TempData["erreur"] = "Login or Password incorrect";
+                        return View();
+                    }
+                    else
+                    {
+                        Session["user"] = admin;
+                        Session["role"] = "ADMIN";
+                        return RedirectToAction("Index", "administrateurs");
+                    }
+
                 }
                 else
                 {
-                    Session["user"] = admin;
-                    TempData["message"] = "Authentifié autant que admin";
-
-
+                    Session["user"] = client;
+                    Session["role"] = "CLIENT";
+                    return RedirectToAction("Index", "Home");
                 }
-
-            }
-            else
-            {
-                Session["user"] = client;
-                client a = (client)Session["user"];
-                TempData["message"] = "Authentifié autant que client";
-
-            }
-
-            return RedirectToAction("Res", "Account");
-
-
-        }
-
-        public ActionResult Res()
-        {
-            return View();
+          
         }
         public ActionResult Logout()
         {
-            Session["user"] = null;
-            return RedirectToAction("Login", "Account");
+            if (Session["User"] != null)
+            {
+                Session["user"] = null;
+                Session["role"] = null;
+               
+            }
+            return RedirectToAction("Index", "Home");
         }
 
     }

@@ -11,7 +11,8 @@ namespace ProjetGestionHotel1.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class chambre
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -22,6 +23,7 @@ namespace ProjetGestionHotel1.Models
         }
     
         public int id_chambre { get; set; }
+        [Display(Name ="Room N°")]
         public int num_chambre { get; set; }
         public string disponibilite { get; set; }
         public string nom_categorie { get; set; }

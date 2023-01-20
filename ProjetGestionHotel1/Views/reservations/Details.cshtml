@@ -3,64 +3,81 @@
 @{
     ViewBag.Title = "Details";
 }
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<div class="main-panel">
+    <div class="content-wrapper">
+        <div class="row">
 
-<h2>Details</h2>
+            <div class="col-sm-8 offset-sm-2">
+                <div class="card ">
+                    <div class="card-body ">
+                        <h4 class="card-title">Manager informations</h4>
+                        <p class="card-description">
+                            Consult a manager informations
+                        </p>
+                        <div>
+                            <dl class="dl-horizontal">
+                                <dt>
+                                    @Html.LabelFor(model => model.client.nom_client, "Client Last Name :", htmlAttributes: new { @class = "col-sm-4  " })
+                                </dt>
 
-<div>
-    <h4>reservation</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.debut_reservation)
-        </dt>
+                                <dd>
+                                    @Html.DisplayFor(model => model.client.nom_client)
+                                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.debut_reservation)
-        </dd>
+                                <dt>
+                                    @Html.LabelFor(model => model.client.prenom_client, "Client First Name :", htmlAttributes: new { @class = "col-sm-4  " })
+                                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.fin_reservation)
-        </dt>
+                                <dd>
+                                    @Html.DisplayFor(model => model.client.prenom_client)
+                                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.fin_reservation)
-        </dd>
+                                <dt>
+                                    @Html.LabelFor(model => model.nbr_personne, "Number of persons :", htmlAttributes: new { @class = "col-sm-4  " })
+                                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.statut)
-        </dt>
+                                <dd>
+                                    @Html.DisplayFor(model => model.nbr_personne)
+                                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.statut)
-        </dd>
+                                <dt>
+                                    @Html.LabelFor(model => model.debut_reservation, "Booking Start Date :", htmlAttributes: new { @class = "col-sm-4  " })
+                                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.nbr_personne)
-        </dt>
+                                <dd>
+                                    @Html.DisplayFor(model => model.debut_reservation)
+                                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.nbr_personne)
-        </dd>
+                                <dt>
+                                    @Html.LabelFor(model => model.fin_reservation, "Booking End Date :", htmlAttributes: new { @class = "col-sm-4  " })
+                                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.chambre.disponibilite)
-        </dt>
+                                <dd>
+                                    @Html.DisplayFor(model => model.fin_reservation)
+                                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.chambre.disponibilite)
-        </dd>
+                                <dt>
+                                    @Html.LabelFor(model => model.statut, "State :", htmlAttributes: new { @class = "col-sm-4  " })
+                                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.client.nom_client)
-        </dt>
+                                <dd>
+                                    @Html.DisplayFor(model => model.statut)
+                                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.client.nom_client)
-        </dd>
+                            </dl>
 
-    </dl>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <p style="margin-left:200px; margin-top:20px;">
+            <a class="btn btn-primary me-2 text-white mdi mdi-arrow-left-bold" href="@Url.Action("Index","administrateurs")">Back</a>
+
+        </p>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.id_reservation }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

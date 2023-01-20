@@ -2,62 +2,64 @@
 
 @{
     ViewBag.Title = "Index";
+    Layout = null;
 }
 
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.debut_reservation)
+            Room
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.fin_reservation)
+            Client
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.statut)
+            N persons
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.nbr_personne)
+            Start Date
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.chambre.disponibilite)
+            End Date
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.client.nom_client)
+            State
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.debut_reservation)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.fin_reservation)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.statut)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.nbr_personne)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.chambre.disponibilite)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.client.nom_client)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id_reservation }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id_reservation }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id_reservation })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.chambre.num_chambre, new { htmlAttributes = new { @class = "d-flex" } })
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.client.nom_client, new { htmlAttributes = new { @class = "d-flex" } })
+                @Html.DisplayFor(modelItem => item.client.prenom_client, new { htmlAttributes = new { @class = "d-flex" } })
+
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.nbr_personne, new { htmlAttributes = new { @class = "d-flex" } })
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.debut_reservation, new { htmlAttributes = new { @class = "d-flex" } })
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.fin_reservation, new { htmlAttributes = new { @class = "d-flex" } })
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.statut, new { htmlAttributes = new { @class = "d-flex" } })
+            </td>
+
+            <td>
+                @Html.ActionLink("Details", "Details", new { id = item.id_reservation }, new { @class = "btn btn-warning btn-lg text-white mb-0 me-0 mdi mdi-chevron-double-right" }) |
+                @if(item.statut == "Waiting") { 
+                @Html.ActionLink("Accept", "Accept", new { id = item.id_reservation }, new { @class = "btn btn-success btn-lg text-white mb-0 me-0 mdi mdi-check" }) 
+                @Html.ActionLink("Reject", "Reject", new { id = item.id_reservation }, new { @class = "btn btn-danger btn-lg text-white mb-0 me-0 mdi mdi mdi-close" })}
+            </td>
+        </tr>
+    }
 
 </table>
